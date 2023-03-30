@@ -14,7 +14,7 @@ http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/
 		</jms:active-mq-connection>
 	</jms:config>
 	<flow name="u-amazon-mqFlow" doc:id="273c86f7-ef4e-476f-9749-5212d9adb762" >
-		<http:listener doc:name="Listener" doc:id="3d48a6fd-084c-448a-86e9-3145f674d2e2" config-ref="amazon-mq-http" path="/api/mq*"/>
+		<http:listener doc:name="Listener" doc:id="3d48a6fd-084c-448a-86e9-3145f674d2e2" config-ref="amazon-mq-http" path="/api/mq/*"/>
 		<jms:publish doc:name="Publish" doc:id="e9948fdd-8bb4-4c83-9d12-470ed4265751" config-ref="AmazonMQ" destination="DEV_IN1" sendCorrelationId="ALWAYS" persistentDelivery="false"/>
 		<logger level="INFO" doc:name="Logger" doc:id="f6442a3c-80dc-45d0-8509-3cf1a700961f" message='"published"'/>
 	</flow>
