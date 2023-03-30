@@ -6,7 +6,7 @@
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
 http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/current/mule-jms.xsd">
 	<http:listener-config name="amazon-mq-http" doc:name="HTTP Listener config" doc:id="25bad0cf-51d5-4294-8268-27b8aa2df04d" >
-		<http:listener-connection host="0.0.0.0" port="8082" />
+		<http:listener-connection host="localhost" port="8083" />
 	</http:listener-config>
 	<jms:config name="AmazonMQ" doc:name="JMS Config" doc:id="825e8c79-2277-4ca2-9275-4be1c62bceb1" >
 		<jms:active-mq-connection username="ghosharijit86" password="Hello@123456" >
