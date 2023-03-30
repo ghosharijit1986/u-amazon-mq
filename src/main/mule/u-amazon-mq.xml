@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:jms="http://www.mulesoft.org/schema/mule/jms" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/current/mule-jms.xsd">
+	<http:listener-config name="amazon-mq-http" doc:name="HTTP Listener config" doc:id="25bad0cf-51d5-4294-8268-27b8aa2df04d" >
+		<http:listener-connection host="0.0.0.0" port="8082" />
+	</http:listener-config>
+	<jms:config name="AmazonMQ" doc:name="JMS Config" doc:id="825e8c79-2277-4ca2-9275-4be1c62bceb1" >
+		<jms:active-mq-connection username="ghosharijit86" password="Hello@123456" >
+			<jms:factory-configuration brokerUrl="ssl://b-617432cc-09de-4cab-bc52-ad93d3438f4d-1.mq.ap-southeast-2.amazonaws.com:61617" />
+		</jms:active-mq-connection>
+	</jms:config>
+	<flow name="u-amazon-mqFlow" doc:id="273c86f7-ef4e-476f-9749-5212d9adb762" >
+		<http:listener doc:name="Listener" doc:id="3d48a6fd-084c-448a-86e9-3145f674d2e2" config-ref="amazon-mq-http" path="/api/mq*"/>
+		<jms:publish doc:name="Publish" doc:id="e9948fdd-8bb4-4c83-9d12-470ed4265751" config-ref="AmazonMQ" destination="DEV_IN1" sendCorrelationId="ALWAYS" persistentDelivery="false"/>
+		<logger level="INFO" doc:name="Logger" doc:id="f6442a3c-80dc-45d0-8509-3cf1a700961f" message='"published"'/>
+	</flow>
+</mule>
