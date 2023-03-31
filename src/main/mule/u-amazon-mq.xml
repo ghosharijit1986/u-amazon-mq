@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:jms="http://www.mulesoft.org/schema/mule/jms" xmlns:http="http://www.mulesoft.org/schema/mule/http"
-	xmlns="http://www.mulesoft.org/schema/mule/core"
-	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+<mule xmlns:file="http://www.mulesoft.org/schema/mule/file" xmlns:jms="http://www.mulesoft.org/schema/mule/jms"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
-http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/current/mule-jms.xsd">
+http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/current/mule-jms.xsd
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd">
 	<http:listener-config name="amazon-mq-http" doc:name="HTTP Listener config" doc:id="25bad0cf-51d5-4294-8268-27b8aa2df04d" >
 		<http:listener-connection host="localhost" port="8083" />
 	</http:listener-config>
@@ -13,6 +14,9 @@ http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/
 			<jms:factory-configuration brokerUrl="ssl://b-617432cc-09de-4cab-bc52-ad93d3438f4d-1.mq.ap-southeast-2.amazonaws.com:61617" />
 		</jms:active-mq-connection>
 	</jms:config>
+	<file:config name="file-write" doc:name="File Config" doc:id="15d71c43-fb5f-4eb6-8c91-34ea2ad4a25d" >
+		<file:connection workingDir="C:\Users\arijit.c.ghosh\OneDrive - Accenture\Mulesoft" />
+	</file:config>
 	<flow name="u-amazon-mqFlow" doc:id="273c86f7-ef4e-476f-9749-5212d9adb762" >
 		<http:listener doc:name="Listener" doc:id="3d48a6fd-084c-448a-86e9-3145f674d2e2" config-ref="amazon-mq-http" path="/api/mq/*"/>
 		<jms:publish doc:name="Publish" doc:id="e9948fdd-8bb4-4c83-9d12-470ed4265751" config-ref="AmazonMQ" destination="DEV_IN1" sendCorrelationId="ALWAYS" persistentDelivery="false"/>
@@ -31,6 +35,8 @@ http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/
 }	]]></jms:body>
 			</jms:response>
 		</jms:listener>
-		<set-payload value="'received'" doc:name="Set Payload" doc:id="7a3069b6-0bbe-410c-b93e-2a28be14abe1" />
+		<set-payload value="received" doc:name="Set Payload" doc:id="7a3069b6-0bbe-410c-b93e-2a28be14abe1" />
+		<file:write doc:name="Write" doc:id="0dfd18c6-d967-4448-a7bc-5907ef682548" config-ref="file-write" path="/out"/>
+		<logger level="INFO" doc:name="Logger" doc:id="96943cae-eacd-4baa-b3e8-be8a67a0a05c" message="finished"/>
 	</flow>
 </mule>
