@@ -23,4 +23,14 @@ http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/
 		<jms:consume doc:name="Consume" doc:id="6178d674-3c58-4831-9dc0-5fa17c83f91e" config-ref="AmazonMQ" destination="DEV_IN1"/>
 		<logger level="INFO" doc:name="Logger" doc:id="e4bac134-4b89-4806-b4f8-2133d5abd424" message='#[payload]++" Arijit"'/>
 	</flow>
+	<flow name="u-amazon-mqFlow2" doc:id="ec57b7e3-8553-4b9a-83dc-511d25d81b8a" >
+		<jms:listener doc:name="On New Message" doc:id="3411706e-8c64-439c-8b3a-15eacd95d73e" config-ref="AmazonMQ" destination="DEV_IN1">
+			<jms:response sendCorrelationId="ALWAYS" >
+				<jms:body ><![CDATA[{
+	"status" : "received"
+}	]]></jms:body>
+			</jms:response>
+		</jms:listener>
+		<set-payload value="'received'" doc:name="Set Payload" doc:id="7a3069b6-0bbe-410c-b93e-2a28be14abe1" />
+	</flow>
 </mule>
