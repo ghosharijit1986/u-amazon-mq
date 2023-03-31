@@ -28,7 +28,7 @@ http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/fil
 		<logger level="INFO" doc:name="Logger" doc:id="e4bac134-4b89-4806-b4f8-2133d5abd424" message='#[payload]++" Arijit"'/>
 	</flow>
 	<flow name="u-amazon-mqFlow2" doc:id="ec57b7e3-8553-4b9a-83dc-511d25d81b8a" >
-		<jms:listener doc:name="On New Message" doc:id="3411706e-8c64-439c-8b3a-15eacd95d73e" config-ref="AmazonMQ" destination="DEV_IN1">
+		<jms:listener doc:name="On New Message" doc:id="3411706e-8c64-439c-8b3a-15eacd95d73e" config-ref="AmazonMQ" destination="DEV_IN2">
 			<jms:response sendCorrelationId="ALWAYS" >
 				<jms:body ><![CDATA[{
 	"status" : "received"
