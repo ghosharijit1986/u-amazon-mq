@@ -15,7 +15,6 @@ http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/fil
 		</jms:active-mq-connection>
 	</jms:config>
 	<file:config name="file-write" doc:name="File Config" doc:id="15d71c43-fb5f-4eb6-8c91-34ea2ad4a25d" >
-		<file:connection workingDir="C:\Users\arijit.c.ghosh\OneDrive - Accenture\Mulesoft" />
 	</file:config>
 	<flow name="u-amazon-mqFlow" doc:id="273c86f7-ef4e-476f-9749-5212d9adb762" >
 		<http:listener doc:name="Listener" doc:id="3d48a6fd-084c-448a-86e9-3145f674d2e2" config-ref="amazon-mq-http" path="/api/mq/*"/>
@@ -37,7 +36,7 @@ http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/fil
 		</jms:listener>
 		<logger level="INFO" doc:name="Logger" doc:id="7f3ee874-12da-4947-be27-0bb014aeef25" message="first"/>
 		<set-payload value="received" doc:name="Set Payload" doc:id="7a3069b6-0bbe-410c-b93e-2a28be14abe1" />
-		<file:write doc:name="Write" doc:id="0dfd18c6-d967-4448-a7bc-5907ef682548" config-ref="file-write" path="/out"/>
+		<file:write doc:name="Write" doc:id="0dfd18c6-d967-4448-a7bc-5907ef682548" config-ref="file-write" path="C:\Users\arijit.c.ghosh\out"/>
 		<logger level="INFO" doc:name="Logger" doc:id="96943cae-eacd-4baa-b3e8-be8a67a0a05c" message="finished"/>
 	</flow>
 </mule>
