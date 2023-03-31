@@ -18,12 +18,11 @@ http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/fil
 	</file:config>
 	<flow name="u-amazon-mqFlow" doc:id="273c86f7-ef4e-476f-9749-5212d9adb762" >
 		<http:listener doc:name="Listener" doc:id="3d48a6fd-084c-448a-86e9-3145f674d2e2" config-ref="amazon-mq-http" path="/api/mq/*"/>
-		<jms:publish doc:name="Publish" doc:id="e9948fdd-8bb4-4c83-9d12-470ed4265751" config-ref="AmazonMQ" destination="DEV_IN1" sendCorrelationId="ALWAYS" persistentDelivery="false"/>
-		<logger level="INFO" doc:name="Logger" doc:id="f6442a3c-80dc-45d0-8509-3cf1a700961f" message='"published"'/>
+		<jms:publish doc:name="Publish" doc:id="e9948fdd-8bb4-4c83-9d12-470ed4265751" config-ref="AmazonMQ" destination="dev-topic" sendCorrelationId="ALWAYS" persistentDelivery="false" destinationType="TOPIC"/>
+		<logger level="INFO" doc:name="Logger" doc:id="f6442a3c-80dc-45d0-8509-3cf1a700961f" message='published topic'/>
 	</flow>
 	<flow name="u-amazon-mqFlow1" doc:id="958e2edf-da5e-4988-8798-0b87514a82ae" >
 		<http:listener doc:name="Listener" doc:id="13d8e8e4-d8e9-47cb-b67e-20cc203bbdd0" config-ref="amazon-mq-http" path="/api/consume/*"/>
-		<jms:consume doc:name="Consume" doc:id="6178d674-3c58-4831-9dc0-5fa17c83f91e" config-ref="AmazonMQ" destination="DEV_IN1"/>
 		<logger level="INFO" doc:name="Logger" doc:id="e4bac134-4b89-4806-b4f8-2133d5abd424" message='#[payload]++" Arijit"'/>
 	</flow>
 	<flow name="u-amazon-mqFlow2" doc:id="ec57b7e3-8553-4b9a-83dc-511d25d81b8a" >
@@ -37,8 +36,8 @@ http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/fil
 }	]]></jms:body>
 			</jms:response>
 		</jms:listener>
-		<logger level="INFO" doc:name="Logger" doc:id="7f3ee874-12da-4947-be27-0bb014aeef25" message="first"/>
+		<logger level="INFO" doc:name="Logger" doc:id="7f3ee874-12da-4947-be27-0bb014aeef25" message="#[payload]"/>
 		<set-payload value="received" doc:name="Set Payload" doc:id="7a3069b6-0bbe-410c-b93e-2a28be14abe1" />
-		<logger level="INFO" doc:name="Logger" doc:id="96943cae-eacd-4baa-b3e8-be8a67a0a05c" message="finished"/>
+		<logger level="INFO" doc:name="Logger" doc:id="96943cae-eacd-4baa-b3e8-be8a67a0a05c" message="#[payload]"/>
 	</flow>
 </mule>
