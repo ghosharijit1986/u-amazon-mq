@@ -29,6 +29,9 @@ http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/fil
 	</flow>
 	<flow name="u-amazon-mqFlow2" doc:id="ec57b7e3-8553-4b9a-83dc-511d25d81b8a" >
 		<jms:listener doc:name="On New Message" doc:id="3411706e-8c64-439c-8b3a-15eacd95d73e" config-ref="AmazonMQ" destination="DEV_IN2">
+			<jms:consumer-type >
+				<jms:queue-consumer />
+			</jms:consumer-type>
 			<jms:response sendCorrelationId="ALWAYS" >
 				<jms:body ><![CDATA[{
 	"status" : "received"
